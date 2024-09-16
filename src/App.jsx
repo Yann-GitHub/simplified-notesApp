@@ -5,7 +5,6 @@ import VisibilityFilter from "./VisibilityFilter";
 import noteService from "./services/notes";
 import { useDispatch } from "react-redux";
 import { setNotes } from "./reducers/noteReducer";
-import notes from "./services/notes";
 
 const App = () => {
   const dispatch = useDispatch();

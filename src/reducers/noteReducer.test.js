@@ -17,8 +17,8 @@ describe("noteReducer", () => {
     const newState = noteReducer(state, action);
 
     expect(newState).toHaveLength(1);
-    // expect(newState).toContainEqual(action.payload);
-    expect(newState.map((s) => s.content)).toContainEqual(action.payload);
+    expect(newState).toContainEqual(action.payload);
+    // expect(newState.map((s) => s.content)).toContainEqual(action.payload);
   });
 
   test("returns new state with action TOGGLE_IMPORTANCE", () => {

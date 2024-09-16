@@ -35,8 +35,9 @@ const noteSlice = createSlice({
   initialState: [],
   reducers: {
     createNote: (state, action) => {
-      const content = action.payload;
-      state.push({ content, important: false, id: generateId() });
+      // const content = action.payload;
+      // state.push({ content, important: false, id: generateId() });
+      state.push(action.payload);
     },
     toggleImportanceOf: (state, action) => {
       const id = action.payload;
@@ -45,8 +46,9 @@ const noteSlice = createSlice({
         ...noteToChange,
         important: !noteToChange.important,
       };
+      // console.log(changedNote);
 
-      console.log(current(state));
+      // console.log(current(state));
       return state.map((note) => (note.id !== id ? note : changedNote));
     },
     appendNote(state, action) {
@@ -58,10 +60,10 @@ const noteSlice = createSlice({
   },
 });
 
-// Helper function
-const generateId = () => Number((Math.random() * 1000000).toFixed(0));
+// Helper function - useless now as the id is created by the backend server
+// const generateId = () => Number((Math.random() * 1000000).toFixed(0));
 
-// Action creators
+// Action creators - useless now as they are defined in the noteSlice
 // export const createNote = (content) => {
 //   return {
 //     type: "NEW_NOTE",
