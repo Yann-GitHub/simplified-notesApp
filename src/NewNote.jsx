@@ -5,6 +5,7 @@ import noteService from "./services/notes";
 const NewNote = () => {
   const dispatch = useDispatch();
 
+  //////////////// Only update the store ////////////////
   // const addNote = (event) => {
   //   event.preventDefault();
   //   const content = event.target.note.value;
@@ -13,13 +14,23 @@ const NewNote = () => {
   //   dispatch(createNote(content));
   // };
 
+  /////////////// Update the server and the store ///////////////
+  // const addNote = async (event) => {
+  //   event.preventDefault();
+  //   const content = event.target.note.value;
+  //   event.target.note.value = "";
+
+  //   const newNote = await noteService.createNote(content);
+  //   dispatch(createNote(newNote));
+  // };
+
+  /////////////// Update the server and the store with thunk ///////////////
   const addNote = async (event) => {
     event.preventDefault();
     const content = event.target.note.value;
     event.target.note.value = "";
 
-    const newNote = await noteService.createNote(content);
-    dispatch(createNote(newNote));
+    dispatch(createNote(content));
   };
 
   return (

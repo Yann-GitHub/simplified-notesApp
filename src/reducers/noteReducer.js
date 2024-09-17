@@ -1,5 +1,7 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import noteService from "../services/notes";
 
+////////////////////// Initial state before using json-server //////////////////////
 // const initialState = [
 //   {
 //     content: "reducer defines how redux store works",
@@ -13,6 +15,10 @@ import { createSlice, current } from "@reduxjs/toolkit";
 //   },
 // ];
 
+/////////////////////// Helper function - useless json-server created ids //////////////////////
+// const generateId = () => Number((Math.random() * 1000000).toFixed(0));
+
+////////////////////////: Store without redux toolkit //////////////////////
 // const noteReducer = (state = initialState, action) => {
 //   switch (action.type) {
 //     case "NEW_NOTE":
@@ -30,6 +36,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 //   }
 // };
 
+//////////////////// Store with redux toolkit //////////////////////
 const noteSlice = createSlice({
   name: "notes",
   initialState: [],
@@ -60,9 +67,6 @@ const noteSlice = createSlice({
   },
 });
 
-// Helper function - useless now as the id is created by the backend server
-// const generateId = () => Number((Math.random() * 1000000).toFixed(0));
-
 // Action creators - useless now as they are defined in the noteSlice
 // export const createNote = (content) => {
 //   return {
@@ -82,6 +86,28 @@ const noteSlice = createSlice({
 //   };
 // };
 
-export const { createNote, toggleImportanceOf, appendNote, setNotes } =
-  noteSlice.actions;
+export const { toggleImportanceOf, appendNote, setNotes } = noteSlice.actions;
+
+// Thunk - used to fetch notes from the server and set them to the store
+export const initializeNotes = () => {
+  return async (dispatch) => {
+    const notes = await noteService.getAll();
+    dispatch(setNotes(notes));
+  };
+};
+
+export const createNote = (content) => {
+  return async (dispatch) => {
+    const newNote = await noteService.createNote(content);
+    dispatch(appendNote(newNote));
+  };
+};
+
+export const toggleImportance = (id) => {
+  return async (dispatch) => {
+    const updatedNote = await noteService.toggleImportance(id);
+    dispatch(toggleImportanceOf(id));
+  };
+};
+
 export default noteSlice.reducer;

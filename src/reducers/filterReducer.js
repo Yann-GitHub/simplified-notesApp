@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/////////////// Storre without redux toolkit ////////////////////
 // const filterReducer = (state = "ALL", action) => {
 //   switch (action.type) {
 //     case "SET_FILTER":
@@ -9,6 +10,7 @@ import { createSlice } from "@reduxjs/toolkit";
 //   }
 // };
 
+/////////////// Store with redux toolkit ////////////////////
 const filterSlice = createSlice({
   name: "filter",
   initialState: "ALL",
@@ -17,6 +19,7 @@ const filterSlice = createSlice({
   },
 });
 
+/////////////// Action creator without redux toolkit ////////////////////
 // Action creator
 // export const filterChange = (filter) => {
 //   return {
